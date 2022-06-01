@@ -1,0 +1,2 @@
+I write in file some text
+and it saves inside!
