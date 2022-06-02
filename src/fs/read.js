@@ -8,11 +8,11 @@ const __dirname = url.fileURLToPath(new URL('.',
 export const read = async () => {
     const pathToFile = path.join(__dirname, 'files', 'fileToRead.txt');
 
-    await fs.promises.access(pathToFile)
-        .catch((err) => {throw new Error('FS operation failed')});
-
-    const readStream = fs.createReadStream(pathToFile);
-    readStream.pipe(process.stdout);
+    const fileContent = await fs.promises.readFile(pathToFile,{flag: 'r'})
+        .catch( (err) => {
+        throw new Error('FS operation failed')
+        });
+    process.stdout.write(fileContent);
 };
 
 read();

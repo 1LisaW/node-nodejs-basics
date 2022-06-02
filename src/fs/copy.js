@@ -27,9 +27,7 @@ export const copy = async () => {
                 const pathToFileName = path.join(folderPath, fileName.name);
                 const pathToCopyFileName = path.join(copyFolderPath, fileName.name);
 
-                const readStream = fs.createReadStream(pathToFileName);
-                const writeStream = fs.createWriteStream(pathToCopyFileName);
-                readStream.pipe(writeStream);
+                await fs.promises.copyFile(pathToFileName, pathToCopyFileName)
             } else {
                 copyRecursion(path.join(folderPath, fileName.name),
                     path.join(copyFolderPath, fileName.name))

@@ -7,12 +7,10 @@ const __dirname = url.fileURLToPath(new URL('.',
 export const create = async () => {
     const message = 'I am fresh and young';
     const pathToFile = path.join(__dirname, 'files', 'fresh.txt');
-    fs.access(pathToFile, (notExist) => {
-        if (!notExist) throw new Error('FS operation failed')
+    await fs.promises.writeFile(pathToFile, message, {
+        flag: 'wx'
+    }).catch((err) => {
+        throw new Error('FS operation failed')
     });
-    const writeStream = new fs.createWriteStream(pathToFile, {
-        overwrite: false
-    });
-    await writeStream.write(message);
 };
 create();
