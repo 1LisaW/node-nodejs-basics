@@ -1,3 +1,19 @@
+import { pipeline, Transform } from "stream";
+
 export const transform = async () => {
-    // Write your code here 
+
+    const reverseText = new Transform({
+        transform(chunk, encoding, callback){
+            callback(null, String(chunk).split('').reverse().join(''));
+        }
+    });
+    pipeline(
+        process.stdin,
+        reverseText,
+        process.stdout,
+        (err) => {
+            throw new Error();
+        }
+    )
 };
+transform();
